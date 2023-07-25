@@ -1,0 +1,35 @@
+# deployment of go app server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'simpletimeservice'
+spec:
+  selector:
+    matchLabels:
+      type: 'simpletimeservicepods'
+  template:
+    metadata:
+      labels:
+        type: 'simpletimeservicepods'
+    spec:
+      containers:
+        - image: "vabsdocker/simple_time_service:1.0.0"
+          name: "simpletimeservice"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+# service binding to go app server pods and exposing it on port 30000 on your host.
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'simpletimeservice'
+spec:
+  selector:
+    type: 'simpletimeservicepods'
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000
+
