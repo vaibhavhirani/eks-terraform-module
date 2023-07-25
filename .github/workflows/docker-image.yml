@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/vabsdocker/simple_time_service:1.0.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple_time_service:1.0.0
