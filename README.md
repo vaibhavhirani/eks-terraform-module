@@ -54,3 +54,8 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
 ### How to apply kubernetes yaml
 1. Make sure your kubernetes cluster is up and running. Enable your kubernetes cluster from docker desktop - Open Docker Desktop > Settings > Kubernetes > Check the `Enable Kubernetes` Button > Apply & Restart  
 2. Go to app/ folder (`cd app/`), apply the yaml file to your cluster using this command `kubectl apply -f microservice.yaml`
+
+
+## EKS Cluster Setup Usign Terraform
+### Prerequisites
+- Create an user in AWS, which has access to creates resources. We will use `aws configure` or `aws configure --profile terraform` command to set up aws context for Terraform.
