@@ -82,3 +82,39 @@ resource "aws_subnet" "eks_private_sb_2" {
     }        
 
 }
+
+#NAT gateways provides the a way to instances in private subnet to connect to internet.
+resource "aws_nat_gateway" "eks_nat_1" {
+    allocation_id = aws_eip.eks_nat_ip_1.id
+    subnet_id = aws_subnet.eks_public_sb_1.id
+      tags = {
+        Name = var.tag
+    }  
+}
+
+
+#NAT gateways provides the a way to instances in private subnet to connect to internet.
+resource "aws_nat_gateway" "eks_nat_2" {
+    allocation_id = aws_eip.eks_nat_ip_2.id
+    subnet_id = aws_subnet.eks_public_sb_2.id
+      tags = {
+        Name = var.tag
+    }  
+}
+
+
+#IP address for NAT gateway
+resource "aws_eip" "eks_nat_ip_1" {
+    depends_on = [aws_internet_gateway.eks_ig]
+    tags = {
+        Name = var.tag
+    }  
+}
+
+#IP address for NAT gateway
+resource "aws_eip" "eks_nat_ip_2" {
+    depends_on = [aws_internet_gateway.eks_ig]
+    tags = {
+        Name = var.tag
+    }  
+}
