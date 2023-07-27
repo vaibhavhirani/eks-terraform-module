@@ -203,17 +203,10 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster.name
 }
 
-# creating service-linked role
-resource "aws_iam_service_linked_role" "AWSServiceRoleForAmazonEKSNodegroup" {
-aws_service_name = "eks-nodegroup.amazonaws.com"
-}
-
 # Kubernetes Cluster - my_eks_cluster
 resource "aws_eks_cluster" "eks" {
   name     = var.tag
   role_arn = aws_iam_role.eks_cluster.arn
-  service_account_role_arn = aws_iam_service_linked_role.AWSServiceRoleForAmazonEKSNodegroup
-  version  = "1.27"
   vpc_config {
     endpoint_private_access = false
     endpoint_public_access  = true
@@ -278,7 +271,6 @@ resource "aws_eks_node_group" "eks_nodes" {
     aws_subnet.eks_private_sb_1.id,
     aws_subnet.eks_private_sb_2.id
   ]
-
   scaling_config {
     desired_size = 2
     max_size     = 4
