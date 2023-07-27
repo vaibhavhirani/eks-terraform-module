@@ -3,7 +3,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "cluster_name" {
-  default = "my-eks-cluster"
+  default = "my_eks_cluster"
 }
 
 variable "az" {
