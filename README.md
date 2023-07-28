@@ -59,7 +59,7 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
 
 
 ## Github Actions 
-### Integrated Github Actions for building and publishing of the docker image - vabdocker/simple_time_service:1.0.0. 
+ - Integrated Github Actions for building and publishing of the docker image - vabdocker/simple_time_service:1.0.0. 
  - Code is at `.github/workflows/docker-image.yml`
  - Pipeline is running at https://github.com/vaibhavhirani/particle41-challenge/actions (Not sure if you'll have the access
 
