@@ -16,8 +16,20 @@ spec:
         - image: "vabsdocker/simple_time_service:1.0.0"
           name: "simpletimeservice"
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "400m"
+            limits:                              
+              memory: "256Mi"
+              cpu: "800m"
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+
 ---
 # service binding to go app server pods and exposing it on port 30000 on your host.
 apiVersion: v1
