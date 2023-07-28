@@ -1,7 +1,6 @@
 #sets aws as provider for this module
 #use terraform profile, which could be created with `aws configure --profile terraform` command
 provider "aws" {
-  profile = var.profile
   region  = var.region
 }
 

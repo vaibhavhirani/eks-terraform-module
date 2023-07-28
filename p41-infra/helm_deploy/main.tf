@@ -51,12 +51,12 @@ provider "helm" {
 }
 
 resource "helm_release" "nginx" {
-  name       = "nginx"
+  name       = "prometheus"
   repository = "https://charts.bitnami.com/bitnami"
-  chart      = "nginx"
+  chart      = "prometheus"
 
   values = [
-    file("${path.module}/nginx-values.yaml")
+    file("${path.module}/prometheus-values.yaml")
   ]
 }
 

@@ -45,23 +45,24 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     "timestamp": "2023-07-25 21:54:07.566179008 +0530 IST m=+11.019026926"
     }
     ```
-)
+
 
 ## Kubernetes Deployment (Intended for Docker Desktop Enabled Kubernetes Cluster)
 ### Brief
 - Kubernetes deployment file is at app/microservice.
 - File contains 
     - A Deployment of `vabsdocker/simple_time_service:1.0.0` into kubernetes cluster
-    - and A Node Port service, which exposes the deployment on port no 30000 on your host machine.
+    - and A Node Port service, which exposes the deployment on port no `30000` on your host machine.
 ### How to apply kubernetes yaml
 1. Make sure your kubernetes cluster is up and running. Enable your kubernetes cluster from docker desktop - Open Docker Desktop > Settings > Kubernetes > Check the `Enable Kubernetes` Button > Apply & Restart  
 2. Go to app/ folder (`cd app/`), apply the yaml file to your cluster using this command `kubectl apply -f microservice.yaml`
-
+3. App Server should be running at localhost:30000/. 
 
 ## Github Actions 
- - Integrated Github Actions for building and publishing of the docker image - vabdocker/simple_time_service:1.0.0. 
+ - Integrated Github Actions for building and publishing of the docker image - vabsdocker/simple_time_service:1.0.0. 
+ - Uses `docker buildx` to generate image for **linux/amd64**, **linux/arm64**
  - Code is at `.github/workflows/docker-image.yml`
- - Pipeline is running at https://github.com/vaibhavhirani/particle41-challenge/actions (Not sure if you'll have the access
+ - Pipeline is running at https://github.com/vaibhavhirani/particle41-challenge/actions (Not sure if you'll have the access)
 
 
 # Task 2
@@ -78,9 +79,15 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
         - Node Group for containing the EC2 instances.
 
 2. Prerequisites
-    1. Create an IAM user in AWS, which has access to creates resources (I have added this user to Admin group). Reference - https://docs.aws.amazon.com/streams/latest/dev/setting-up.html#setting-up-iam. 
+    1. Create an IAM user in AWS, which has access to creates resources(Admin Group). Reference - https://docs.aws.amazon.com/streams/latest/dev/setting-up.html#setting-up-iam or You can also generate the Accese Keys from logged in user in next step.
     2. Generate Access Keys for the user. Reference - https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html
-    3. We will use `aws configure` or `aws configure --profile ${name of user you created}` command to set up aws context for Terraform, provide the access information to the prompt.
+    <!-- 3. We will use `aws configure` or `aws configure --profile ${name of user you created}` command to set up aws context for Terraform, provide the access information to the prompt. -->
+    3. Set below environment variables for terraform to authenticate with AWS Provider.
+      ```
+        export AWS_ACCESS_KEY_ID="my-access-key"
+        export AWS_SECRET_ACCESS_KEY="my-secret-key"
+        export AWS_REGION="your-region"
+      ```
     3. Install Terraform - https://developer.hashicorp.com/terraform/downloads
 
 3. Usage 
@@ -105,7 +112,7 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     1. Create the eks cluster using above steps & generate the `.tfstate` files.
 3. Usage
     1. Navigate to `./p41-infra/k8s_deploy/`
-    2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start.
+    <!-- 2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start. -->
 4. Apply 
     1. To get blueprint of the deployment - `terraform plan`
     2. To apply the resources - `terraform apply`
@@ -118,7 +125,7 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     1. Create the eks cluster using above steps & generate the `.tfstate` files.
 3. Usage
     1. Navigate to `./p41-infra/helm_deploy/`
-    2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start.
+    <!-- 2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start. -->
 4. Apply 
     1. To get blueprint of the deployment - `terraform plan`
     2. To apply the resources - `terraform apply`
