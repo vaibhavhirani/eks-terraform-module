@@ -57,5 +57,43 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
 
 
 ## EKS Cluster Setup Usign Terraform
-### Prerequisites
-- Create an user in AWS, which has access to creates resources. We will use `aws configure` or `aws configure --profile terraform` command to set up aws context for Terraform.
+1. Prerequisites
+    1. Create an IAM user in AWS, which has access to creates resources (I have added this user to Admin group). Reference - https://docs.aws.amazon.com/streams/latest/dev/setting-up.html#setting-up-iam. 
+    2. Generate Access Keys for the user. Reference - https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html
+    3. We will use `aws configure` or `aws configure --profile ${name of user you created}` command to set up aws context for Terraform, provide the access information to the prompt.
+    3. Install Terraform - https://developer.hashicorp.com/terraform/downloads
+
+2. Usage 
+    1. Navigate to `./p41-infra/eks/`
+    2. Open main.tf and provide cluster specific information in module section to these variables -
+        1. `vpc_cidr_block `
+        2. `cluster_name`
+        3. `az`
+        4. `subnet_cidr_blocks`
+        5. `node_instance_type`
+        6. `node_instance_size`
+
+3. Apply
+    1. Get the blueprint of the resource deployment using - `terraform plan`.
+    2. If everything looks fine then `terraform apply`.
+
+## Kubenetes Yaml Deployment Using Terraform
+1. Prerequisites
+    1. Create the eks cluster using above steps & generate the `.tfstate` files.
+2. Usage
+    1. Navigate to `./p41-infra/k8s_deploy/`
+    2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start.
+3. Apply 
+    1. To get blueprint of the deployment - `terraform plan`
+    2. To apply the resources - `terraform apply`
+
+
+## Helm Deployment Using Terraform
+1. Prerequisites
+    1. Create the eks cluster using above steps & generate the `.tfstate` files.
+2. Usage
+    1. Navigate to `./p41-infra/helm_deploy/`
+    2. When applying terraform commands, it will ask for `profile`, please provide the aws profile you created at the start.
+3. Apply 
+    1. To get blueprint of the deployment - `terraform plan`
+    2. To apply the resources - `terraform apply`

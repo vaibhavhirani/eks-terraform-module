@@ -12,6 +12,9 @@ terraform {
   }
 }
 
+variable "profile" {
+ #default = "terraform"
+}
 data "terraform_remote_state" "eks" {
   backend = "local"
   config = {
@@ -21,7 +24,7 @@ data "terraform_remote_state" "eks" {
 
 # Retrieve EKS cluster information
 provider "aws" {
-  profile = "terraform"
+  profile = var.profile
   region = data.terraform_remote_state.eks.outputs.region
 }
 
