@@ -29,7 +29,6 @@ spec:
             httpGet:
               path: /
               port: 8080
-
 ---
 # service binding to go app server pods and exposing it on port 30000 on your host.
 apiVersion: v1

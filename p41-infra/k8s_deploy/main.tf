@@ -11,10 +11,6 @@ terraform {
     }
   }
 }
-
-variable "profile" {
- #default = "terraform"
-}
 data "terraform_remote_state" "eks" {
   backend = "local"
   config = {
@@ -24,7 +20,6 @@ data "terraform_remote_state" "eks" {
 
 # Retrieve EKS cluster information
 provider "aws" {
-  profile = var.profile
   region = data.terraform_remote_state.eks.outputs.region
 }
 
@@ -43,9 +38,7 @@ provider "kubernetes" {
       "eks",
       "get-token",
       "--cluster-name",
-      data.aws_eks_cluster.cluster.name,
-      "--profile",
-      "terraform"
+      data.aws_eks_cluster.cluster.name
     ]
   }
 }

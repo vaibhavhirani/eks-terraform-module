@@ -46,7 +46,6 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     }
     ```
 
-
 ## Kubernetes Deployment (Intended for Docker Desktop Enabled Kubernetes Cluster)
 ### Brief
 - Kubernetes deployment file is at app/microservice.
@@ -104,6 +103,7 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     1. Get the blueprint of the resource deployment using - `terraform plan`.
     2. If everything looks fine then `terraform apply`.
     3. To get kubeconfig locally (in the current context) `aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)`
+    4. You can access the cluster with `kubectl` commands now. 
 
 ## Kubenetes Yaml Deployment Using Terraform
 1. Brief 

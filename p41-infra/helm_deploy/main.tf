@@ -21,7 +21,6 @@ data "terraform_remote_state" "eks" {
 
 # Retrieve EKS cluster information
 provider "aws" {
-  profile = "terraform"
   region = data.terraform_remote_state.eks.outputs.region
 }
 
@@ -41,23 +40,22 @@ provider "helm" {
         "eks",
         "get-token",
         "--cluster-name",
-        data.aws_eks_cluster.cluster.name,
-        "--profile",
-        "terraform"
+        data.aws_eks_cluster.cluster.name
         ]
     }
     }
  
 }
 
-resource "helm_release" "nginx" {
+resource "helm_release" "prometheus" {
   name       = "prometheus"
-  repository = "https://charts.bitnami.com/bitnami"
+  repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus"
-
-  values = [
-    file("${path.module}/prometheus-values.yaml")
-  ]
+  version = "48.2.2"
+  namespace = "default"
+  # values = [
+  #   file("${path.module}/prometheus-values.yaml")
+  # ]
 }
 
 
