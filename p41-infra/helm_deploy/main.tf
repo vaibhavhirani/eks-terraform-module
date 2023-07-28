@@ -47,16 +47,8 @@ provider "helm" {
  
 }
 
-resource "helm_release" "prometheus" {
-  name       = "prometheus"
-  repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "prometheus"
-  version = "48.2.2"
-  namespace = "default"
-  # values = [
-  #   file("${path.module}/prometheus-values.yaml")
-  # ]
+resource "helm_release" "nginx" {
+  name       = "nginx"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "nginx"
 }
-
-
-
