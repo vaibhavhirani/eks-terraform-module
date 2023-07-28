@@ -47,7 +47,7 @@ A  minimalistic Golang server returns timestamp &amp; IP. Terraform modules to d
     ```
 )
 
-## Kubernetes Deployment (Uses Docker Desktop Enabled Kubernetes Cluster)
+## Kubernetes Deployment (Intended for Docker Desktop Enabled Kubernetes Cluster)
 ### Brief
 - Kubernetes deployment file is at app/microservice.
 - File contains 
